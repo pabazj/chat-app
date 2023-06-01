@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# Simple Chat application with React, Firebase and ReactFire
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Prerequisites
 
-In the project directory, you can run:
+NodeJS - https://nodejs.org/en/download/
 
-### `npm start`
+## Installation
+
+git clone https://github.com/pabazj/chat-app
+cd chat-app
+npm i
+npm start
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Used ReactFire Providers
 
-### `npm test`
+###AuthProvider: 
+This provider is responsible for providing the Firebase Authentication service to the application. It takes a sdk prop that should be set to the auth SDK instance obtained from getAuth(app). By wrapping components with AuthProvider, can access the authentication service using the useAuth hook provided by reactfire.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+###FirestoreProvider: 
+This provider is used to provide the Firestore database service to the application. It takes a sdk prop that should be set to the firestoreInstance obtained from getFirestore(useFirebaseApp()). By wrapping components with FirestoreProvider, can access the Firestore database using hooks like useFirestore and useFirestoreCollectionData provided by reactfire.
 
-### `npm run build`
+###StorageProvider: 
+This provider is used to provide the Firebase Storage service to the application. It takes a sdk prop that should be set to the storage SDK instance obtained from getStorage(app). By wrapping the components with StorageProvider, can access the Firebase Storage service using the useStorage hook provided by reactfire.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This ensures that the ChatApp component can make use of these services and interact with Firebase services as needed.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Main Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Sign in with Google Authentication: Users can sign in to the chat app using their Google accounts. This feature leverages Google's authentication service to provide a secure and convenient sign-in process for users.
 
-### `npm run eject`
+Real-time Chat: The chat app allows users to engage in real-time conversations. Messages sent by users are instantly displayed to all participants in the chat. This real-time functionality enables seamless and interactive communication between users.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Upload Files: Users have the ability to upload files within the chat app. This feature allows users to share documents, images, or any other file type with other participants in the chat. The uploaded files are stored securely and can be accessed and downloaded by the recipients.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Delete Messages: Users can delete their own messages within the chat app. This feature provides control and flexibility to users by allowing them to remove messages they no longer want to be visible in the chat. Deleting messages helps in managing the chat history and maintaining the desired conversation flow.
