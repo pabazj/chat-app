@@ -42,3 +42,7 @@ Users have the ability to upload files within the chat app. This feature allows 
 
 - Delete Messages: 
 Users can delete their own messages within the chat app. This feature provides control and flexibility to users by allowing them to remove messages they no longer want to be visible in the chat. Deleting messages helps in managing the chat history and maintaining the desired conversation flow.
+
+## Demo
+
+https://chat-app-reactfire.netlify.app/
