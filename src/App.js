@@ -1,25 +1,28 @@
-import logo from './logo.svg';
+import { getFirestore } from 'firebase/firestore';
+import { FirestoreProvider, useFirebaseApp, AuthProvider, StorageProvider } from 'reactfire';
+import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
+import ChatApp from './components/Chat';
 import './App.css';
 
 function App() {
+  const firestoreInstance = getFirestore(useFirebaseApp());
+
+  const app = useFirebaseApp();
+  const auth = getAuth(app);
+  const storage = getStorage(app);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider sdk={auth}>
+      <FirestoreProvider sdk={firestoreInstance}>
+        <StorageProvider sdk={storage}>
+          <ChatApp />
+        </StorageProvider>
+      </FirestoreProvider>
+    </AuthProvider>
   );
 }
 
 export default App;
+
+
