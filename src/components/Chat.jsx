@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   useFirestoreCollectionData,
   useFirestore,
@@ -25,17 +25,17 @@ const ChatApp = () => {
 
   const firestore = useFirestore();
   const user = useUser();
+  const ref = useRef()
 
   const messagesRef = collection(firestore, 'messages');
   const queryRef = query(messagesRef, orderBy('timestamp'));
   const { data: messages } = useFirestoreCollectionData(queryRef);
 
-  const { imageUrl } = useFileUpload(fileUpload)
+  const { imageUrl, setImageUrl } = useFileUpload(fileUpload)
 
   useEffect(() => {
-   
-    const chatContainer = document.getElementById('chat-container');
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+    ref.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages]);
 
   const handleInputChange = (event) => {
@@ -49,16 +49,17 @@ const ChatApp = () => {
 
       await addDoc(messagesRef, {
         id: uuidv4(),
-        text: fileUpload ? '' : newMessage,
+        text: newMessage,
         timestamp: new Date().getTime(),
         name: user?.data?.displayName,
         uid: user?.data?.uid,
         avatar: user?.data?.photoURL,
-        media: !fileUpload ? null : imageUrl
+        media: !imageUrl ? null : imageUrl
       });
 
       setNewMessage('');
       setFileUpload(null)
+      setImageUrl(null)
 
     }
   };
@@ -75,22 +76,24 @@ const ChatApp = () => {
 
   const handleFileUpload = (e) => {
     let imageData = e.target.files[0]
-
     setFileUpload(imageData)
-    setNewMessage(imageData.name)
   }
 
   return (
-    <section className="chat-container msger" id="chat-container">
+    <section className="chat-container msger">
 
       <Header user={user} />
 
       {user?.data && (
-        <div >
+        <div>
           <main className="msger-chat">
             {messages &&
-              messages.map((message) => (
-                <div key={message.id} className={user?.data?.uid === message.uid ? "msg right-msg" : "msg left-msg"}>
+              messages.map((message, index) => (
+                <div
+                  key={message.id}
+                  className={user?.data?.uid === message.uid ? "msg right-msg" : "msg left-msg"}
+                  ref={messages.length === index + 1 ? ref : null}
+                >
                   <ViewChat
                     message={message}
                     user={user}
@@ -105,6 +108,7 @@ const ChatApp = () => {
             newMessage={newMessage}
             handleInputChange={handleInputChange}
             handleFileUpload={handleFileUpload}
+            imageUrl={imageUrl}
           />
 
         </div>

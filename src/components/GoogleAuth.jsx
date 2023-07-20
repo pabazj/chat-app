@@ -11,12 +11,12 @@ const GoogleAuth = () => {
   };
 
   return (
-    
-    <div className="loginPage">
-      <p>Sign in with Google</p>
-      <button className="login-with-google-btn" onClick={handleSignIn}>
-        Google
-      </button>
+
+    <div className="formContainer">
+      <div className="formWrapper">
+        <span className="title">Where every word brings magic to your fingertips</span>
+        <button className="login-with-google-btn" onClick={handleSignIn}>Sign in with Google</button>
+      </div>
     </div>
   );
 };

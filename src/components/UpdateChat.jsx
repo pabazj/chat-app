@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { MdOutlineAttachFile } from 'react-icons/md';
 import { BsFillSendFill } from 'react-icons/bs';
+import useFileUpload from '../hooks/useFileUpload';
 
-function UpdateChat({ handleSubmit, newMessage, handleInputChange, handleFileUpload}) {
+function UpdateChat({ handleSubmit, newMessage, handleInputChange, handleFileUpload, imageUrl}) {
 
-  const handleFormSubmit = (event) => {
+  const handleChatSend = (event) => {
     event.preventDefault();
     handleSubmit(event);
-    event.target.reset();
   };
 
   return (
-    <form className="msger-inputarea" onSubmit={handleFormSubmit}>
+    <div className="msger-inputarea">
       <input
         type="text"
         className="msger-input"
@@ -20,7 +20,7 @@ function UpdateChat({ handleSubmit, newMessage, handleInputChange, handleFileUpl
         onChange={handleInputChange}
       />
       <button
-        type="submit"
+        onClick={handleChatSend}
         className="msger-send-btn">
         <BsFillSendFill />
       </button>
@@ -32,9 +32,16 @@ function UpdateChat({ handleSubmit, newMessage, handleInputChange, handleFileUpl
           onChange={handleFileUpload}
           style={{ display: 'none' }}
         />
+        {imageUrl && (
+          <img
+            src={imageUrl}
+            alt="Preview"
+            style={{ maxWidth: '100px', maxHeight: '100px' }}
+          />
+        )}
       </label>
 
-    </form>
+    </div>
   )
 }
 

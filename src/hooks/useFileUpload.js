@@ -32,12 +32,11 @@ const useFileUpload = (file) => {
                     });
                 }
             );
-
         }
 
-    }, [file])
+    }, [file, storage])
 
-    return { uplodingProgress, error, imageUrl }
+    return { uplodingProgress, error, imageUrl , setImageUrl}
 }
 
 export default useFileUpload;
